@@ -5,7 +5,7 @@ internal sealed class FileHandler
     private string DirPath { get; set; }
     private string FilePath { get; set; }
 
-    public FileHandler()
+    internal FileHandler()
     {
         var dateNow = DateOnly.FromDateTime(DateTime.Now);
         DirPath = $"./{dateNow.Month}-{dateNow.Year}";
@@ -41,7 +41,7 @@ internal sealed class FileHandler
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(ex.ToString());
             Console.ResetColor();
-            return null;
+            throw;
         }
     }
 

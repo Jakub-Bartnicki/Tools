@@ -17,7 +17,6 @@ internal sealed class InteractiveMenu
 
     internal void Start()
     {
-        var textLines = _todoList;
         PrepareOptions();
 
         WriteMenu();
@@ -29,33 +28,22 @@ internal sealed class InteractiveMenu
             switch (keyInfo.Key)
             {
                 case ConsoleKey.DownArrow:
-                    if (index + 1 < options.Count) index++;
+                    MoveUp();
                     break;
                 case ConsoleKey.UpArrow:
-                    if (index - 1 >= 0) index--;
+                    MoveDown();
                     break;
                 case ConsoleKey.Enter:
-                    options[index].Selected.Invoke(MenuOption.Enter);
-                    _todoList.ToggleItem(index);
-                    break;
-                case ConsoleKey.U:
-                    options[index].Selected.Invoke(MenuOption.KeyU);
-                    _todoList.UpdateItem(options[index].Text, index);
-                    break;
-                case ConsoleKey.R:
-                    options.RemoveAt(index);
-                    _todoList.RemoveItem(index);
+                    ToggleItem();
                     break;
                 case ConsoleKey.A:
-                    options.Add(new Option(""));
-                    var option = options[options.Count - 1];
-                    option.Selected.Invoke(MenuOption.KeyA);
-                    option.Text.Trim();
-                    if (option.Text == "" && option.Text == "\r")
-                    {
-                        options.RemoveAt(options.Count - 1);
-                    }
-                    _todoList.AddItem(option.Text);
+                    AddItem();
+                    break;
+                case ConsoleKey.E:
+                    EditItem();
+                    break;
+                case ConsoleKey.Delete:
+                    RemoveItem();
                     break;
                 default:
                     break;
@@ -75,13 +63,14 @@ internal sealed class InteractiveMenu
         {
             if (options[i] == options[index])
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
+                var color = _todoList.IsTodoItemDone(index) ? ConsoleColor.Green : ConsoleColor.Yellow;
+                Console.ForegroundColor = color;
                 Console.Write(Consts.Caret);
                 Console.WriteLine(options[i].Text);
             }
             else
             {
-                var color = _todoList.IsTodoItemDone(i) ? ConsoleColor.Green : ConsoleColor.Yellow;
+                var color = _todoList.IsTodoItemDone(i) ? ConsoleColor.DarkGreen : ConsoleColor.DarkYellow;
                 Console.ForegroundColor = color;
                 Console.Write(Consts.Empty);
                 Console.WriteLine(options[i].Text);
@@ -89,6 +78,49 @@ internal sealed class InteractiveMenu
         }
 
         Console.ResetColor();
+    }
+
+    private void MoveUp()
+    {
+        if (index + 1 < options.Count) index++;
+    }
+
+    private void MoveDown()
+    {
+        if (index - 1 >= 0) index--;
+    }
+
+    private void ToggleItem()
+    {
+        options[index].Selected.Invoke(MenuOption.Enter);
+        _todoList.ToggleItem(index);
+    }
+
+    private void EditItem()
+    {
+        options[index].Selected.Invoke(MenuOption.KeyE);
+        _todoList.EditItem(options[index].Text, index);
+    }
+
+    private void RemoveItem()
+    {
+        options.RemoveAt(index);
+        _todoList.RemoveItem(index);
+
+        if (index == options.Count) index--;
+    }
+
+    private void AddItem()
+    {
+        options.Add(new Option(""));
+        var option = options[options.Count - 1];
+        option.Selected.Invoke(MenuOption.KeyA);
+        option.Text.Trim();
+        if (option.Text == "" && option.Text == "\r")
+        {
+            options.RemoveAt(options.Count - 1);
+        }
+        _todoList.AddItem(option.Text);
     }
 
     private void PrepareOptions()

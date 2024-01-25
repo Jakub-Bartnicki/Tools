@@ -7,9 +7,9 @@ internal static class ItemRewriter
     private static string caret = Consts.Caret;
     private static List<char> buffer = new();
 
-    internal static string UpdateItem(string text)
+    internal static string EditItem(string text)
     {
-        Console.Clear();
+        Console.WriteLine("\bQuest:");
 
         buffer = text.ToCharArray().ToList();
         Console.Write(caret);

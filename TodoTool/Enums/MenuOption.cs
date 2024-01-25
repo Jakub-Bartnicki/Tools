@@ -4,7 +4,7 @@ internal enum MenuOption
 {
     Any = 0,
     KeyA = 1,
-    KeyU = 2,
-    KeyR = 3,
+    KeyE = 2,
+    KeyDelete = 3,
     Enter = 4
 }

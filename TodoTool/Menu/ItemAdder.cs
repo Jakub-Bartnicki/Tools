@@ -2,7 +2,7 @@
 
 internal static class ItemAdder
 {
-    internal static string AddLine()
+    internal static string AddItem()
     {
         Console.WriteLine("\bQuest:");
 

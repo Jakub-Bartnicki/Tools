@@ -41,9 +41,9 @@ internal sealed class TodoList
         Save();
     }
 
-    internal void UpdateItem(string textLine, int index)
+    internal void EditItem(string textLine, int index)
     {
-        TodoItems[index].Update(textLine);
+        TodoItems[index].Edit(textLine);
         Save();
     }
 

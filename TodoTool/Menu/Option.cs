@@ -13,21 +13,15 @@ internal sealed class Option
         Selected = OnSelect;
     }
 
-    private void OnSelect(MenuOption option = MenuOption.KeyU)
+    private void OnSelect(MenuOption option)
     {
         switch (option)
         {
-            case MenuOption.Enter:
-                break;
-            case MenuOption.KeyU:
-                Text = ItemRewriter.UpdateItem(Text);
+            case MenuOption.KeyE:
+                Text = ItemRewriter.EditItem(Text);
                 break;
             case MenuOption.KeyA:
-                Text = ItemAdder.AddLine();
-                break;
-            case MenuOption.KeyR:
-                break;
-            default:
+                Text = ItemAdder.AddItem();
                 break;
         }
     }

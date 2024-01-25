@@ -12,7 +12,7 @@ internal sealed class TodoItem
             Status = value ? Consts.Done : Consts.NotDone;
         }
     }
-    internal string Status { get; set; }
+    internal string Status { get; set; } = Consts.NotDone;
 
     public TodoItem(string text)
     {
@@ -20,7 +20,7 @@ internal sealed class TodoItem
         IsDone = HasBeenDone(text);
     }
 
-    internal void Update(string textLine)
+    internal void Edit(string textLine)
     {
         Text = textLine;
     }
