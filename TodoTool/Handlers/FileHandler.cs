@@ -9,7 +9,7 @@ internal sealed class FileHandler
     {
         var dateNow = DateOnly.FromDateTime(DateTime.Now);
 
-        bool isHistoricalData = dateNow > date.AddDays(1) && dateNow < date.AddDays(-1);
+        bool isHistoricalData = dateNow > date.AddDays(1) || dateNow < date.AddDays(-1);
 
         FindFile(date, isHistoricalData);
     }
@@ -33,9 +33,10 @@ internal sealed class FileHandler
         catch (Exception ex)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(ex.ToString());
+            Console.WriteLine("Unable to handle non created historical/future TodoLists\n\n", ex);
             Console.ResetColor();
-            throw;
+            Environment.Exit(1);
+            return null;
         }
     }
 
@@ -65,7 +66,7 @@ internal sealed class FileHandler
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Unable to handle non created historical/future TodoLists\n\n", ex);
-            throw;
+            Environment.Exit(1);
         }
     }
 
