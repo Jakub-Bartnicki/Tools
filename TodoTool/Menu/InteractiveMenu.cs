@@ -62,6 +62,8 @@ internal sealed class InteractiveMenu
     {
         Console.Clear();
 
+        if (index < 0) index = 0;
+
         for (int i = 0; i <  options.Count; i++)
         {
             if (options[i] == options[index])
@@ -127,7 +129,7 @@ internal sealed class InteractiveMenu
     }
 
     private void Exit()
-    {
+    {        
         Console.Clear();
         Environment.Exit(0);
     }
