@@ -9,7 +9,7 @@ internal static class ItemRewriter
 
     internal static string EditItem(string text)
     {
-        Console.WriteLine("\bQuest:");
+        Console.WriteLine("Quest:");
 
         buffer = text.ToCharArray().ToList();
         Console.Write(caret);
@@ -24,15 +24,6 @@ internal static class ItemRewriter
         }
 
         return new string(buffer.ToArray());
-    }
-
-    private static void RewriteLine()
-    {
-        Console.SetCursorPosition(0, Console.CursorTop);
-        Console.Write(new string(' ', Console.WindowWidth - 1));
-        Console.SetCursorPosition(0, Console.CursorTop);
-        Console.Write(caret);
-        Console.Write(buffer.ToArray());
     }
 
     private static void HandleKeyPress(ConsoleKeyInfo keyInfo)
@@ -120,5 +111,14 @@ internal static class ItemRewriter
         buffer.Insert(Console.CursorLeft - caret.Length, character);
         RewriteLine();
         Console.SetCursorPosition(cursorAfterNewChar, Console.CursorTop);
+    }
+
+    private static void RewriteLine()
+    {
+        Console.SetCursorPosition(0, Console.CursorTop);
+        Console.Write(new string(' ', Console.WindowWidth - 1));
+        Console.SetCursorPosition(0, Console.CursorTop);
+        Console.Write(caret);
+        Console.Write(buffer.ToArray());
     }
 }

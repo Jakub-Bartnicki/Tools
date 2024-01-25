@@ -10,9 +10,9 @@ internal sealed class InteractiveMenu
     private static int index = 0;
     private readonly TodoList _todoList;
 
-    public InteractiveMenu()
+    public InteractiveMenu(TodoList todoList)
     {
-        _todoList = new TodoList();
+        _todoList = todoList;
     }
 
     internal void Start()
@@ -24,7 +24,7 @@ internal sealed class InteractiveMenu
         ConsoleKeyInfo keyInfo;
         do
         {
-            keyInfo = Console.ReadKey();
+            keyInfo = Console.ReadKey(true);
             switch (keyInfo.Key)
             {
                 case ConsoleKey.DownArrow:
@@ -44,6 +44,9 @@ internal sealed class InteractiveMenu
                     break;
                 case ConsoleKey.Delete:
                     RemoveItem();
+                    break;
+                case ConsoleKey.Escape:
+                    Exit();
                     break;
                 default:
                     break;
@@ -121,6 +124,12 @@ internal sealed class InteractiveMenu
             options.RemoveAt(options.Count - 1);
         }
         _todoList.AddItem(option.Text);
+    }
+
+    private void Exit()
+    {
+        Console.Clear();
+        Environment.Exit(0);
     }
 
     private void PrepareOptions()

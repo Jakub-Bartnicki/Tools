@@ -8,9 +8,9 @@ internal sealed class TodoList
     private readonly FileHandler _fileHandler;
     internal List<TodoItem> TodoItems { get; private set; }
 
-    internal TodoList()
+    internal TodoList(DateOnly date)
     {
-        _fileHandler = new FileHandler();
+        _fileHandler = new FileHandler(date);
         TodoItems = new List<TodoItem>();
 
         var textLines = _fileHandler.ReadFile();
