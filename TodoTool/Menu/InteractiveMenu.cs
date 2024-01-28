@@ -103,12 +103,14 @@ internal sealed class InteractiveMenu
 
     private void EditItem()
     {
+        if (options.Count < 1) return;
         options[index].Selected.Invoke(MenuOption.KeyE);
         _todoList.EditItem(options[index].Text, index);
     }
 
     private void RemoveItem()
     {
+        if (options.Count < 1) return;
         options.RemoveAt(index);
         _todoList.RemoveItem(index);
 
